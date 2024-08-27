@@ -48,3 +48,17 @@ func GetUsername(username string) (*model.User, error) {
 
 	return &existingUser, nil
 }
+
+func InsertGoogleInfo(registerUser *model.User) (*model.User, error) {
+	db := config.DB
+	var existingUser model.User
+
+	result := db.Where("email = ?", registerUser.Email).FirstOrCreate(&existingUser, registerUser)
+
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		return &existingUser, result.Error
+	}
+
+	return &existingUser, nil
+}

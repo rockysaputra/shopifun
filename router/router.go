@@ -21,6 +21,9 @@ func SetupRoutes(app *fiber.App) {
 	user.Post("/register", handler.Register)
 	user.Post("/login", handler.Login)
 
+	user.Get("/login-google", handler.LoginGoogle)
+	user.Get("login-google/callback", handler.GoogleCallback)
+
 	app.Use(middleware.Authorization)
 	//protected route
 	user.Get("/detail", handler.DetailProfile)
